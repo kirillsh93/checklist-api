@@ -1,0 +1,29 @@
+{
+  "name": "checklist-api",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Checklist REST API",
+  "main": "index.js",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development node --watch index",
+    "start": "cross-env NODE_ENV=production node index",
+    "test": "cross-env NODE_ENV=test vitest"
+  },
+  "keywords": [],
+  "author": "Kirill Shapoval",
+  "license": "ISC",
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.0.2",
+    "@eslint/js": "^9.1.1",
+    "eslint": "^8.57.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "globals": "^15.0.0",
+    "vitest": "^1.5.2"
+  },
+  "dependencies": {
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.4.5"
+  }
+}
