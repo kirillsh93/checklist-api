@@ -1,12 +1,15 @@
 import express from 'express';
 
+import { router as apiV1 } from './api/v1/index.js';
+
 export const app = express();
 
-app.get('/', (req, res) => {
-  res.json({
-    message: 'Welcome to the API',
-  });
-});
+// Parse JSON
+app.use(express.json());
+
+// Setup router and routes
+app.use('/api/v1', apiV1);
+app.use('/api', apiV1);
 
 // No route found handler
 app.use((req, res, next) => {
