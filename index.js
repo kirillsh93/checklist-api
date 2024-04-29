@@ -1,13 +1,11 @@
-import { createServer } from 'node:http';
+import http from 'node:http';
+
 import { configuration } from './app/config.js';
+import { app } from './app/index.js';
 
 const { port } = configuration.server;
 
-const server = createServer((req, res) => {
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'text/plain');
-  res.end('Hello World');
-});
+const server = http.createServer(app);
 
 server.listen(port, () => {
   console.log(`Server running at port: ${port}`);
