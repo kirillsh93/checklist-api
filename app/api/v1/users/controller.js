@@ -7,7 +7,7 @@ export const id = async (req, res, next) => {
   const { id = '' } = params;
 
   try {
-    const data = await prisma.todo.findUnique({
+    const data = await prisma.user.findUnique({
       where: {
         id,
       },
@@ -15,7 +15,7 @@ export const id = async (req, res, next) => {
 
     if (data === null) {
       next({
-        message: 'todo not found',
+        message: 'user not found',
         status: 404,
       });
     } else {
@@ -31,7 +31,7 @@ export const create = async (req, res, next) => {
   const { body = {} } = req;
 
   try {
-    const data = await prisma.todo.create({ data: body });
+    const data = await prisma.user.create({ data: body });
 
     res.json({
       data,
@@ -42,35 +42,20 @@ export const create = async (req, res, next) => {
 };
 
 export const all = async (req, res, next) => {
-  const { query = {}, params = {} } = req;
+  const { query = {} } = req;
   const { limit, offset } = parsePaginationParams(query);
   const { orderBy, direction } = parseSortParams({ fields, ...query });
-  const { groupId } = params;
 
   try {
     const [data, total] = await Promise.all([
-      prisma.todo.findMany({
+      prisma.user.findMany({
         skip: offset,
         take: limit,
         orderBy: {
           [orderBy]: direction,
         },
-        include: {
-          user: {
-            select: {
-              name: true,
-            },
-          },
-        },
-        where: {
-          groupId,
-        },
       }),
-      prisma.todo.count({
-        where: {
-          groupId,
-        },
-      }),
+      prisma.user.count(),
     ]);
 
     res.json({
@@ -102,7 +87,7 @@ export const update = async (req, res, next) => {
   const { id = '' } = params;
 
   try {
-    const data = await prisma.todo.update({
+    const data = await prisma.user.update({
       where: {
         id,
       },
@@ -125,7 +110,7 @@ export const remove = async (req, res, next) => {
   const { id = '' } = params;
 
   try {
-    await prisma.todo.delete({
+    await prisma.user.delete({
       where: {
         id,
       },
